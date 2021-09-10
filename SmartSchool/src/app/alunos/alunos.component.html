@@ -54,8 +54,12 @@
           <td>{{aluno.telefone}}</td>
           <td>
             <div class="btn-group">
-              <button (click)="openModal(template)" class="btn btn-sm btn-outline-primary">Professores</button>
-              <button class="btn btn-sm btn-danger" (click)="deletar()">Deletar</button>
+              <button (click)="openModal(template)" class="btn btn-sm btn-outline-primary">
+                Professores
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="deletarAluno(aluno.id)">
+                Deletar
+              </button>
             </div>
           </td>
         </tr>
