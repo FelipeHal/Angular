@@ -7,7 +7,6 @@
       </button>
     </app-titulo>
     
-    
     <form [formGroup]="professorForm" (click)="professorSubmit()">
       <div class="form-group">
         <label for="formGroupExampleInput">Nome</label>
@@ -19,7 +18,9 @@
       </div> -->
       <div class="form-group">
         <hr>
-        <button class="btn btn-success" [disabled]="!professorForm.valid">Salvar</button>
+        <button class="btn btn-success" [disabled]="!professorForm.valid">
+          Salvar
+        </button>
       </div>
     </form>
   </div>
@@ -42,15 +43,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let prof of professores">
-          <td><button (click)="professorSelect(prof)" class="btn btn-sm btn-warning">Detalhe</button></td>
-          <td scope="row">{{prof.id}}</td>
-          <td>{{prof.nome}}</td>
-          <td>{{prof.disciplina}}</td>
+        <tr *ngFor="let professor of professores">
+          <td><button (click)="professorSelect(professor)" class="btn btn-sm btn-warning">Detalhe</button></td>
+          <td scope="row">{{professor.id}}</td>
+          <td>{{professor.nome}}</td>
+          <td>{{professor.disciplina}}</td>
           <td>
             <div class="btn-group">
               <button (click)="openModal(template)" class="btn btn-sm btn-outline-primary">Alunos</button>
             </div>
+            <button class="btn btn-sm btn-danger" (click)="deletarProfessor(professor.id)">
+              Deletar
+            </button>
           </td>
         </tr>
       </tbody>

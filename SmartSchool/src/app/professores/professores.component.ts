@@ -54,10 +54,22 @@ export class ProfessoresComponent implements OnInit {
   }
 
   salvarProfessor(professor: Professor){
-    (this.professorSelecionado.id === 0) ? this.modo = 'post' : this.modo = 'put';
+    (professor.id === 0) ? this.modo = 'post' : this.modo = 'put';
     this.professorService[this.modo](professor).subscribe(
       (retorno: Professor) =>{
         console.log(retorno);
+        this.carregarProfessores();
+      },
+      (erro: any) => {
+        console.log(erro);
+      }
+    );
+  }
+
+  deletarProfessor(id: number){
+    this.professorService.delete(id).subscribe(
+      (model: any) => {
+        console.log(model);
         this.carregarProfessores();
       },
       (erro: any) => {
@@ -76,7 +88,7 @@ export class ProfessoresComponent implements OnInit {
   }
 
   professorNovo(){
-    this.professorSelecionado = new Professor;
+    this.professorSelecionado = new Professor();
     this.professorForm.patchValue(this.professorSelecionado);
   }
 

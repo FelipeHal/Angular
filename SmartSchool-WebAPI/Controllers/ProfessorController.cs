@@ -110,14 +110,14 @@ namespace SmartSchool_WebAPI.Controllers
         {
             try
             {
-                var Professor = await _repo.GetProfessorAsyncById(professorId, false);
-                if(Professor == null) return NotFound();
+                var professor = await _repo.GetProfessorAsyncById(professorId, false);
+                if(professor == null) return NotFound();
 
-                _repo.Delete(Professor);
+                _repo.Delete(professor);
 
                 if(await _repo.SaveChangesAsync())
                 {
-                    return Ok("Deletado");
+                    return Ok(new {message = "Deletado" });
                 }                
             }
             catch (Exception ex)

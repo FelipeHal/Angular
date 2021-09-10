@@ -25,11 +25,11 @@ export class ProfessorService {
     return this.http.post(`${this.baseUrl}`, professor);
   }
 
-  putprofessor: Professor){
+  put(professor: Professor){
     return this.http.put(`${this.baseUrl}/${professor.id}`, professor);
   }
 
-  // delete(id: number):{
-  //   return this.http.delete(`${this.baseUrl}/${id}`);
-  // }
+  delete(id: number){
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
 }
