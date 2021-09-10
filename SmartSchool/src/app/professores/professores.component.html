@@ -1,0 +1,70 @@
+<div class="row">
+
+  <div class="col-sm-6" *ngIf="professorSelecionado">
+    <app-titulo [titulo]="(professorSelecionado.id === 0 ? 'Novo Professor' : 'Cód.Professor: ' + professorSelecionado.id)">
+      <button class="btn btn-warning" (click)="voltar()">
+        Lista de Professores
+      </button>
+    </app-titulo>
+    
+    
+    <form [formGroup]="professorForm" (submit)="professorSubmit()">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Nome</label>
+        <input type="text" formControlName="nome" class="form-control">
+      </div>
+      <!-- <div class="form-group">
+        <label for="formGroupExampleInput2">Disciplina</label>
+        <input type="text" formControlName="disciplina" class="form-control">
+      </div> -->
+      <div class="form-group">
+        <hr>
+        <button class="btn btn-success" [disabled]="!professorForm.valid">Salvar</button>
+      </div>
+    </form>
+  </div>
+  
+  <div [ngClass]="{'col-sm-6': professorSelecionado, 'col-sm-12': !professorSelecionado}">
+    <app-titulo [titulo]="title">
+      <button class="btn btn-success" (click)="professorNovo()">
+        Cadastrar Professor
+      </button>
+    </app-titulo>
+    
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Visualizar</th>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Disciplina</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prof of professores">
+          <td><button (click)="professorSelect(prof)" class="btn btn-sm btn-warning">Detalhe</button></td>
+          <td scope="row">{{prof.id}}</td>
+          <td>{{prof.nome}}</td>
+          <td>{{prof.disciplina}}</td>
+          <td>
+            <div class="btn-group">
+              <button (click)="openModal(template)" class="btn btn-sm btn-outline-primary">Alunos</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body">
+    <app-professores></app-professores>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      FECHAR
+    </button>
+  </div>
+</ng-template>
