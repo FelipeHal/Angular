@@ -71,7 +71,7 @@ export class AlunosComponent implements OnInit {
 
   deletarAluno(id: number){
     this.alunoService.delete(id).subscribe(
-      (model: any) =>{
+      (model: any) => {
         console.log(model);
         this.carregarAlunos();
       },

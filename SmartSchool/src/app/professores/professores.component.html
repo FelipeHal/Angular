@@ -8,7 +8,7 @@
     </app-titulo>
     
     
-    <form [formGroup]="professorForm" (submit)="professorSubmit()">
+    <form [formGroup]="professorForm" (click)="professorSubmit()">
       <div class="form-group">
         <label for="formGroupExampleInput">Nome</label>
         <input type="text" formControlName="nome" class="form-control">

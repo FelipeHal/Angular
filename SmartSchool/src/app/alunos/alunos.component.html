@@ -7,7 +7,7 @@
       </button>
     </app-titulo>
     
-    <form [formGroup]="alunoForm" (submit)="alunoSubmit()">
+    <form [formGroup]="alunoForm" (click)="alunoSubmit()">
       <div class="form-group">
         <label for="formGroupExampleInput">Nome</label>
         <input type="text" formControlName="nome" class="form-control">

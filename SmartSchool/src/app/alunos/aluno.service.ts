@@ -29,7 +29,7 @@ export class AlunoService {
     return this.http.put(`${this.baseUrl}/${aluno.id}`, aluno);
   }
 
-  delete(id: number):{
+  delete(id: number){
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }
