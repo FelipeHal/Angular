@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SmartSchool_WebAPI.Models
+namespace SmartSchool_WebAPI.BusinessEntities
 {
     public class Disciplina
     {
@@ -15,10 +15,10 @@ namespace SmartSchool_WebAPI.Models
             ProfessorId = professorId;
         }
 
-        public virtual int Id { get; set; }
-        public virtual string Nome { get; set; }
-        public virtual int ProfessorId { get; set; }
-        public virtual string Professor{ get; set; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public int ProfessorId { get; set; }
+        public virtual Professor Professor { get; set; }
         public virtual IEnumerable<AlunoDisciplina> AlunosDisciplinas { get; set; }
     }
 }

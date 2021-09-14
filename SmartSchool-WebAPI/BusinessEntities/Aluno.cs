@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SmartSchool_WebAPI.Models
+namespace SmartSchool_WebAPI.BusinessEntities
 {
     public class Aluno
     {
@@ -16,10 +16,10 @@ namespace SmartSchool_WebAPI.Models
             this.Telefone = telefone;
         }
 
-        public virtual int Id { get; set; }
-        public virtual string Nome { get; set; }
-        public virtual string Sobrenome { get; set; }
-        public virtual string Telefone { get; set; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Sobrenome { get; set; }
+        public string Telefone { get; set; }
         public virtual IEnumerable<AlunoDisciplina> AlunosDisciplinas { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace SmartSchool_WebAPI.Models
+namespace SmartSchool_WebAPI.BusinessEntities
 {
     public class AlunoDisciplina
     {
@@ -12,9 +12,9 @@ namespace SmartSchool_WebAPI.Models
             DisciplinaId = disciplinaId;
         }
 
-        public virtual int AlunoId { get; set; }
+        public int AlunoId { get; set; }
         public virtual Aluno Aluno { get; set; }
-        public virtual int DisciplinaId { get; set; }
+        public int DisciplinaId { get; set; }
         public virtual Disciplina Disciplina { get; set; }
     }
 }

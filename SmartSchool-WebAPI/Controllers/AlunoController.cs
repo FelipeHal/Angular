@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SmartSchool_WebAPI.BusinessEntities;
 using SmartSchool_WebAPI.Data;
 using SmartSchool_WebAPI.Models;
 

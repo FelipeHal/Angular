@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using SmartSchool_WebAPI.BusinessEntities;
 using SmartSchool_WebAPI.Models;
 
 namespace SmartSchool_WebAPI.Data

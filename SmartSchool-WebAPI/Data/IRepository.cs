@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using SmartSchool_WebAPI.BusinessEntities;
 using SmartSchool_WebAPI.Models;
 
 namespace SmartSchool_WebAPI.Data
@@ -12,13 +13,13 @@ namespace SmartSchool_WebAPI.Data
         Task<bool> SaveChangesAsync();
 
         //ALUNO
-        Task<Aluno[]> GetAllAlunosAsync(bool includeProfessor);        
-        Task<Aluno[]> GetAlunosAsyncByDisciplinaId(int disciplinaId, bool includeDisciplina);
-        Task<Aluno> GetAlunoAsyncById(int alunoId, bool includeProfessor);
+        Task<AlunoModel[]> GetAllAlunosAsync(bool includeProfessor);        
+        Task<AlunoModel[]> GetAlunosAsyncByDisciplinaId(int disciplinaId, bool includeDisciplina);
+        Task<AlunoModel> GetAlunoAsyncById(int alunoId, bool includeProfessor);
         
         //PROFESSOR
-        Task<Professor[]> GetAllProfessoresAsync(bool includeAluno);
-        Task<Professor> GetProfessorAsyncById(int professorId, bool includeAluno);
-        Task<Professor[]> GetProfessoresAsyncByAlunoId(int alunoId, bool includeDisciplina);
+        Task<ProfessorModel[]> GetAllProfessoresAsync(bool includeAluno);
+        Task<ProfessorModel> GetProfessorAsyncById(int professorId, bool includeAluno);
+        Task<ProfessorModel[]> GetProfessoresAsyncByAlunoId(int alunoId, bool includeDisciplina);
     }
 }

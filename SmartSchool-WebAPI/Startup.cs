@@ -25,18 +25,37 @@ namespace SmartSchool_WebAPI
             services.AddDbContext<DataContext>(x => x
                 .UseLazyLoadingProxies()
                 .UseSqlite(
-                    Configuration.GetConnectionString("DefaultConn"), x=> x.MigrationsAssembly(typeof(DataContext).Assembly.GetName().Name)
+                    Configuration.GetConnectionString("DefaultConn"), x => x.MigrationsAssembly(typeof(DataContext).Assembly.GetName().Name)
                 )
             );
 
             services.AddControllers()
-                    .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = 
+                    .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling =
             Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddScoped<IRepository, Repository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartSchool_WebAPI", Version = "v1" });
             });
+
+            //AutoMapper
+            services.AddAutoMapper(config =>
+            {
+                config.ForAllMaps((typeMap, config) =>
+                {
+                    config.ForAllMembers(opt =>
+                    {
+                        opt.Condition((sourceObject, destObject, sourceProperty, destProperty) =>
+                        {
+                            if (sourceProperty == null)
+                            {
+                                return destProperty != null;
+                            }
+                            return !sourceProperty.Equals(destProperty);
+                        });
+                    });
+                });
+            }, typeof(Startup).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
