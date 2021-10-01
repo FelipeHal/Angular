@@ -1,136 +1,104 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SmartSchool_WebAPI.BusinessEntities;
-using SmartSchool_WebAPI.Data;
-using SmartSchool_WebAPI.Models;
+using SmartSchool.WebAPI.Models.Alunos;
+using SmartSchool.WebAPI.Services;
 
-namespace SmartSchool_WebAPI.Controllers
+namespace SmartSchool.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
 
     public class AlunoController : ControllerBase
     {
-        private readonly IRepository _repo;
-        public AlunoController(IRepository repo)
+        private readonly IAlunoService alunoService;
+
+        public AlunoController(IAlunoService alunoService)
         {
-            _repo = repo;
+            this.alunoService = alunoService;
         }
 
-        public virtual IRepository Repo { get; }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-
             try
             {
-                var result = await _repo.GetAllAlunosAsync(true);
-                return Ok(result);
+                return Ok(alunoService.GetAllAlunos());
             }
             
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest($"Erro: {ex.Message}");
             }
         }
-        [HttpGet("{AlunoId}")]
-        public async Task<IActionResult> GetByAlunoId(int AlunoId)
-        {
 
-            try
-            {
-                var result = await _repo.GetAlunoAsyncById(AlunoId, true);
-                return Ok(result);
-            }
-            
-            catch (System.Exception ex)
-            {
-                return BadRequest($"Erro: {ex.Message}");
-            }
-        }
         [HttpGet("ByDisciplina/{disciplinaId}")]
-        public async Task<IActionResult> GetByDisciplinaId(int disciplinaId)
-        {
-
-            try
-            {
-                var result = await _repo.GetAlunoAsyncById(disciplinaId, true);
-                return Ok(result);
-            }
-            
-            catch (System.Exception ex)
-            {
-                return BadRequest($"Erro: {ex.Message}");
-            }
-        }
-        [HttpPost]
-        public async Task<IActionResult> post(Aluno model)
-        {
-
-            try
-            {
-                _repo.Add(model);
-
-                if(await _repo.SaveChangesAsync())
-                {
-                    return Ok(model);
-                }
-            }
-            
-            catch (System.Exception ex)
-            {
-                return BadRequest($"Erro: {ex.Message}");
-            }
-
-            return BadRequest();
-        }
-        [HttpPut("{alunoId}")]
-        public async Task<IActionResult> put(int alunoId, Aluno model)
+        public IActionResult GetByDisciplinaId(int disciplinaId)
         {
             try
             {
-                var aluno = await _repo.GetAlunoAsyncById(alunoId, false);
-                if(aluno == null) return NotFound();
-
-                _repo.Update(model);
-
-                if(await _repo.SaveChangesAsync())
-                {
-                    return Ok(model);
-                }                
+                return Ok(alunoService.GetAllAlunos(disciplinaId));
             }
             catch (Exception ex)
             {
                 return BadRequest($"Erro: {ex.Message}");
             }
-
-            return BadRequest();
         }
+
+
+        [HttpGet("{alunoId}")]
+        public async Task<IActionResult> GetByAlunoId(int alunoId)
+        {
+            try
+            {
+                return Ok(await alunoService.GetAlunoAsync(alunoId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex.Message}");
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Post(AlunoEditModel model)
+        {
+            try
+            {
+                return Ok(await alunoService.InsertAlunoAsync(model));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex.Message}");
+            }
+        }
+
+        [HttpPut("{alunoId}")]
+        public async Task<IActionResult> Put(int alunoId, AlunoEditModel model)
+        {
+            try
+            {
+                return Ok(await alunoService.UpdateAlunoAsync(model));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex.Message}");
+            }
+        }
+        
 
         [HttpDelete("{alunoId}")]
-        public async Task<IActionResult> delete(int alunoId)
+        public async Task<IActionResult> Delete(int alunoId)
         {
             try
             {
-                var aluno = await _repo.GetAlunoAsyncById(alunoId, false);
-                if(aluno == null) return NotFound();
-
-                _repo.Delete(aluno);
-
-                if(await _repo.SaveChangesAsync())
-                {
-                    return Ok(new { message = "Deletado" });
-                }                
+                return Ok(await alunoService.DeleteAlunoAsync(alunoId));
             }
             catch (Exception ex)
             {
                 return BadRequest($"Erro: {ex.Message}");
             }
-
-            return BadRequest();
         }
-
     }
 }

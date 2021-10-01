@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SmartSchool_WebAPI.Migrations
+namespace SmartSchool.WebAPI.Migrations
 {
     public partial class initial : Migration
     {

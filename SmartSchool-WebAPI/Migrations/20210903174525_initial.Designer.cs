@@ -2,10 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartSchool_WebAPI.Data;
+using SmartSchool.Core;
 
-namespace SmartSchool_WebAPI.Migrations
+namespace SmartSchool.WebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20210903174525_initial")]
@@ -17,7 +16,7 @@ namespace SmartSchool_WebAPI.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.9");
 
-            modelBuilder.Entity("SmartSchool_WebAPI.Models.Aluno", b =>
+            modelBuilder.Entity("SmartSchool.WebAPI.Models.Aluno", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +87,7 @@ namespace SmartSchool_WebAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartSchool_WebAPI.Models.AlunoDisciplina", b =>
+            modelBuilder.Entity("SmartSchool.WebAPI.Models.AlunoDisciplina", b =>
                 {
                     b.Property<int>("AlunoId")
                         .HasColumnType("INTEGER");
@@ -220,7 +219,7 @@ namespace SmartSchool_WebAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartSchool_WebAPI.Models.Disciplina", b =>
+            modelBuilder.Entity("SmartSchool.WebAPI.Models.Disciplina", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -274,7 +273,7 @@ namespace SmartSchool_WebAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartSchool_WebAPI.Models.Professor", b =>
+            modelBuilder.Entity("SmartSchool.WebAPI.Models.Professor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -315,15 +314,15 @@ namespace SmartSchool_WebAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartSchool_WebAPI.Models.AlunoDisciplina", b =>
+            modelBuilder.Entity("SmartSchool.WebAPI.Models.AlunoDisciplina", b =>
                 {
-                    b.HasOne("SmartSchool_WebAPI.Models.Aluno", "Aluno")
+                    b.HasOne("SmartSchool.WebAPI.Models.Aluno", "Aluno")
                         .WithMany("AlunosDisciplinas")
                         .HasForeignKey("AlunoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartSchool_WebAPI.Models.Disciplina", "Disciplina")
+                    b.HasOne("SmartSchool.WebAPI.Models.Disciplina", "Disciplina")
                         .WithMany("AlunosDisciplinas")
                         .HasForeignKey("DisciplinaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -334,26 +333,26 @@ namespace SmartSchool_WebAPI.Migrations
                     b.Navigation("Disciplina");
                 });
 
-            modelBuilder.Entity("SmartSchool_WebAPI.Models.Disciplina", b =>
+            modelBuilder.Entity("SmartSchool.WebAPI.Models.Disciplina", b =>
                 {
-                    b.HasOne("SmartSchool_WebAPI.Models.Professor", null)
+                    b.HasOne("SmartSchool.WebAPI.Models.Professor", null)
                         .WithMany("Disciplinas")
                         .HasForeignKey("ProfessorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SmartSchool_WebAPI.Models.Aluno", b =>
+            modelBuilder.Entity("SmartSchool.WebAPI.Models.Aluno", b =>
                 {
                     b.Navigation("AlunosDisciplinas");
                 });
 
-            modelBuilder.Entity("SmartSchool_WebAPI.Models.Disciplina", b =>
+            modelBuilder.Entity("SmartSchool.WebAPI.Models.Disciplina", b =>
                 {
                     b.Navigation("AlunosDisciplinas");
                 });
 
-            modelBuilder.Entity("SmartSchool_WebAPI.Models.Professor", b =>
+            modelBuilder.Entity("SmartSchool.WebAPI.Models.Professor", b =>
                 {
                     b.Navigation("Disciplinas");
                 });

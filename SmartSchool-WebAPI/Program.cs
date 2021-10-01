@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace SmartSchool_WebAPI
+namespace SmartSchool.WebAPI
 {
     public class Program
     {
