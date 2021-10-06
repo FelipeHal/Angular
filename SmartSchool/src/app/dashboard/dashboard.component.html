@@ -1,4 +1,21 @@
 <app-titulo [titulo]="title"></app-titulo>
-<p>
-  dashboard works!
-</p>
+
+<div class="container">
+  <div class="login col-sm-6">
+    <form [formGroup]="loginForm" (click)="loginSubmit()">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Usuário</label>
+        <input type="text" formControlName="username" class="form-control" id="usernamelogin" aria-describedby="emailHelp" placeholder="Username">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Senha</label>
+        <input type="password" formControlName="password" class="form-control" id="passwordlogin" placeholder="Password">
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Lembrar usuário</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

@@ -41,6 +41,7 @@ namespace SmartSchool.WebAPI
             //Services
             services.AddScoped<IAlunoService, AlunoServiceDefault>();
             services.AddScoped<IProfessorService, ProfessorServiceDefault>();
+            services.AddScoped<IAuthenticationService, AuthenticationServiceDefault>();
 
 
             //AutoMapper

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,11 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  public title = 'Principal';
+  public title = 'Bem vindo! Faça seu login para continuar.';
+  public loginForm: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username:['', Validators.required],
+      password:['', Validators.required],
+    })
   }
 
+  loginSubmit(){
+    console.log(this.loginForm.value);
+  }
 }
