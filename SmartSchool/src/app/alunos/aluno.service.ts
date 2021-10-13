@@ -9,8 +9,8 @@ import { Aluno } from '../models/Aluno';
 })
 export class AlunoService {
 
-  baseUrl = `${environment.UrlPrincipal}/api/aluno`;
-  
+  baseUrl = `${environment.UrlPrincipal}/aluno`;
+
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Aluno[]>{

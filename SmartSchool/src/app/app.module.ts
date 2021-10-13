@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -27,6 +28,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
       TituloComponent
    ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),

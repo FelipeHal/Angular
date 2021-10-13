@@ -9,8 +9,8 @@ import { Professor } from '../models/Professor';
 })
 export class ProfessorService {
 
-  baseUrl = `${environment.UrlPrincipal}/api/professor`;
-  
+  baseUrl = `${environment.UrlPrincipal}/professor`;
+
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Professor[]>{

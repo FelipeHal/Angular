@@ -7,8 +7,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.Core;
 using SmartSchool.Core.Helper.ExtensionMethods;
-using SmartSchool.WebAPI.Services;
-using SmartSchool.WebAPI.Services.Handlers;
+using SmartSchool.WebAPI.Helper.ExtensionMethods;
 
 namespace SmartSchool.WebAPI
 {
@@ -39,9 +38,7 @@ namespace SmartSchool.WebAPI
             services.AddRepositories();
 
             //Services
-            services.AddScoped<IAlunoService, AlunoServiceDefault>();
-            services.AddScoped<IProfessorService, ProfessorServiceDefault>();
-            services.AddScoped<IAuthenticationService, AuthenticationServiceDefault>();
+            services.AddServices();
 
 
             //AutoMapper
