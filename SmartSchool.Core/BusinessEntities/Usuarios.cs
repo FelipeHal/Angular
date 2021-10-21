@@ -31,7 +31,7 @@ namespace SmartSchool.Core.BusinessEntities
         {
             builder
                 .HasData(new [] {
-                    new Usuarios { Id = 1, Nome = "Usuário demo", Usuario = "teste1", SenhaHash = PasswordHasher.HashPassword("123456") },
+                    new Usuarios { Id = 1, Nome = "Usuário demo", Usuario = "teste", SenhaHash = PasswordHasher.HashPassword("123456") },
                 });
         }
     }

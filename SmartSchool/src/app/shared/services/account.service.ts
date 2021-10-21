@@ -13,7 +13,23 @@ export class AccountService {
 
     baseUrl = `${environment.UrlPrincipal}/Account`;
 
+    private get username(): string {
+      return localStorage.getItem('username');
+    }
+    private set username(value: string) {
+      if (value) {
+        localStorage.setItem('username', value);
+      }
+      else {
+        localStorage.removeItem('username');
+      }
+    }
+
     constructor(private router: Router, private http: HttpClient) { }
+
+    public isAuthenticated(): boolean {
+      return this.username !== null;
+    }
 
     public async authenticate(model: LoginModel): Promise<string> {
         return await lastValueFrom(
@@ -22,7 +38,7 @@ export class AccountService {
             .pipe(
                 map((res: boolean) => {
 
-                    localStorage.setItem('username', model.username);
+                  this.username = model.username;
 
                     if (model.remmeberMe) {
                       console.log('REMEMBER ME!');
@@ -46,5 +62,9 @@ export class AccountService {
                 })
             )
         );
+    }
+
+    public logoff(): void {
+
     }
 }

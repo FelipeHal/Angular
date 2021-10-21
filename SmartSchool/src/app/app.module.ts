@@ -16,6 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
+import { LoginComponent } from './pages/authentication/login/login.component';
+import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
       PerfilComponent,
       DashboardComponent,
       NavComponent,
-      TituloComponent
+      TituloComponent,
+      LoginLayoutComponent,
+      LoginComponent,
+      HomeLayoutComponent
    ],
   imports: [
     CommonModule,
