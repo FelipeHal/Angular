@@ -83,7 +83,8 @@ export class AccountService {
         );
     }
 
-    public logoff(): void {
+    public logoff(): boolean {
       localStorage.removeItem('token');
+      return this.username == null;
     }
 }

@@ -1,3 +1,4 @@
+import { LogoutComponent } from './pages/authentication/logout/logout.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import { LoginComponent } from './pages/authentication/login/login.component';
@@ -30,8 +31,17 @@ const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent }
     ]
+  },
+
+  {
+    path: '', component: LogoutComponent,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LogoutComponent }
+    ]
   }
 ];
+
 
 @NgModule({
   imports: [
@@ -39,9 +49,10 @@ const routes: Routes = [
 
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => localStorage.getItem('token'),
+        tokenGetter: () => { console.log('here'); return localStorage.getItem('token') },
         allowedDomains: [
-          environment.UrlPrincipal.replace(/(^\w+:|^)\/\//, '')
+          'localhost:5000'
+          //environment.UrlPrincipal.replace(/(^\w+:|^)\/\//, '')
         ],
         disallowedRoutes: [
           `${environment.UrlPrincipal}/Account`
