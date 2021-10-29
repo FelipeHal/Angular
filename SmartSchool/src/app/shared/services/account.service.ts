@@ -39,6 +39,18 @@ export class AccountService {
       }
     }
 
+    private get refreshToken(): string {
+      return localStorage.getItem('refreshToken');
+    }
+    private set refreshToken(value: string) {
+      if (value) {
+        localStorage.setItem('refreshToken', value);
+      }
+      else {
+        localStorage.removeItem('refreshToken');
+      }
+    }
+
     constructor(private router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
     public isAuthenticated(): boolean {
@@ -58,6 +70,7 @@ export class AccountService {
 
                   this.username = res.username;
                   this.token = res.token;
+                  this.refreshToken = res.refreshToken;
 
                     if (model.remmeberMe) {
                       console.log('REMEMBER ME!');

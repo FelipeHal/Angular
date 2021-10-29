@@ -23,6 +23,8 @@ namespace SmartSchool.Core.BusinessEntities
 
         [StringLength(200)]
         public string SenhaHash { get; set; }
+
+        public virtual ICollection<UsuarioRefreshTokens> RefreshTokens { get; set; }
     }
 
     public class UsuariosConfiguration : IEntityTypeConfiguration<Usuarios>

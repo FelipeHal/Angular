@@ -9,6 +9,7 @@ namespace SmartSchool.Core.Helper.ExtensionMethods
         public static void AddRepositories(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            serviceCollection.AddScoped<IUsuarioRefreshTokensRepository, UsuarioRefreshTokensRepository>();
 
             serviceCollection.AddScoped<IAlunoRepository, AlunoRepository>();
             serviceCollection.AddScoped<IProfessorRepository, ProfessorRepository>();
