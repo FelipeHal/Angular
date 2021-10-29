@@ -8,6 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using SmartSchool.Core;
 using SmartSchool.Core.Helper.ExtensionMethods;
 using SmartSchool.WebAPI.Helper.ExtensionMethods;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmartSchool.WebAPI
 {
@@ -33,6 +38,44 @@ namespace SmartSchool.WebAPI
                     x => x.MigrationsAssembly(typeof(DataContext).Assembly.GetName().Name)
                 )
             );
+
+            //Authentication
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(o =>
+                {
+                    o.RequireHttpsMetadata = false;
+                    o.SaveToken = true;
+
+                    o.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"])),
+
+                        ValidateIssuer = true,
+                        ValidIssuer = Configuration["JWT:Issuer"],
+
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["JWT:Audience"],
+
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer",
+                    new AuthorizationPolicyBuilder()
+                        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser()
+                        .Build()
+                );
+            });
+
 
             //Repositories
             services.AddRepositories();
@@ -65,6 +108,11 @@ namespace SmartSchool.WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartSchool.WebAPI", Version = "v1" });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -81,12 +129,15 @@ namespace SmartSchool.WebAPI
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints
+                    .MapControllers()
+                    .RequireAuthorization();
             });
         }
     }

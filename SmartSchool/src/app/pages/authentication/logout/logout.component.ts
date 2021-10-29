@@ -1,13 +1,13 @@
+import { AccountService } from 'src/app/shared/services/account.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountService } from 'src/app/shared/services/account.service';
 
 @Component({
-  selector: 'app-login-layout',
-  templateUrl: './login-layout.component.html',
-  styleUrls: ['./login-layout.component.scss']
+  selector: 'app-logout',
+  templateUrl: './logout.component.html',
+  styleUrls: ['./logout.component.scss']
 })
-export class LoginLayoutComponent implements OnInit {
+export class LogoutComponent implements OnInit {
 
   constructor(private router: Router, private accountService: AccountService) { }
 

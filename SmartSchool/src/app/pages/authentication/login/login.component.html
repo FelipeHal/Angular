@@ -1,32 +1,37 @@
-<app-titulo [titulo]="title"></app-titulo>
+<div class="bg">
+  <div class="login-title">
+    <app-titulo [titulo]="title"></app-titulo>
+  </div>
 
-<div class="container">
-  <div class="login col-sm-6">
-    <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
-      <div class="form-row text-danger text-center validations" [class.d-none]="status !== 'failure'">
-        <div>{{ loginError }}</div>
-      </div>
 
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Usuário</label>
-        <input type="text" formControlName="username" class="form-control" id="usernamelogin" aria-describedby="emailHelp" placeholder="Username">
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Senha</label>
-        <input type="password" formControlName="password" class="form-control" id="passwordlogin" placeholder="Password">
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Lembrar usuário</label>
-      </div>
+  <div class="container login-container">
+    <div class="login col-sm-6">
+      <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+        <div class="form-row text-danger text-center validations" [class.d-none]="status !== 'failure'">
+          <div>{{ loginError }}</div>
+        </div>
 
-      <button type="submit" class="btn"
-        [class.btn-primary]="status === ''"
-        [class.btn-danger]="status === 'failure'"
-        [class.btn-success]="status === 'success'"
-      >
-        Submit
-      </button>
-    </form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Usuário</label>
+          <input type="text" formControlName="username" class="form-control" id="usernamelogin" aria-describedby="emailHelp" placeholder="Username">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Senha</label>
+          <input type="password" formControlName="password" class="form-control" id="passwordlogin" placeholder="Password">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Lembrar usuário</label>
+        </div>
+
+        <button type="submit" class="btn"
+          [class.btn-primary]="status === ''"
+          [class.btn-danger]="status === 'failure'"
+          [class.btn-success]="status === 'success'"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   </div>
 </div>

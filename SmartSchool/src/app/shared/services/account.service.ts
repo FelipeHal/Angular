@@ -1,10 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, delay, lastValueFrom, map, of } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../models/account/login-model';
+import { SignInModel } from '../models/account/signin-model';
 
 @Injectable({
     providedIn: 'root'
@@ -25,20 +27,37 @@ export class AccountService {
       }
     }
 
-    constructor(private router: Router, private http: HttpClient) { }
+    private get token(): string {
+      return localStorage.getItem('token');
+    }
+    private set token(value: string) {
+      if (value) {
+        localStorage.setItem('token', value);
+      }
+      else {
+        localStorage.removeItem('token');
+      }
+    }
+
+    constructor(private router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
     public isAuthenticated(): boolean {
       return this.username !== null;
     }
 
+    public isTokenExpired(): boolean {
+      return (this.token !== null && this.jwtHelper.isTokenExpired(this.token))
+    }
+
     public async authenticate(model: LoginModel): Promise<string> {
         return await lastValueFrom(
           this.http
-            .post<boolean>(this.baseUrl, model)
+            .post<SignInModel>(this.baseUrl, model)
             .pipe(
-                map((res: boolean) => {
+                map((res: SignInModel) => {
 
-                  this.username = model.username;
+                  this.username = res.username;
+                  this.token = res.token;
 
                     if (model.remmeberMe) {
                       console.log('REMEMBER ME!');
@@ -65,6 +84,6 @@ export class AccountService {
     }
 
     public logoff(): void {
-
+      //todo
     }
 }

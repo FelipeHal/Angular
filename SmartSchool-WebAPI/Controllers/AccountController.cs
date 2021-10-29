@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SmartSchool.WebAPI.Helper.Exceptions;
 using SmartSchool.WebAPI.Models.Authentication;
 using SmartSchool.WebAPI.Services;
@@ -20,13 +21,12 @@ namespace SmartSchool.WebAPI.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public async Task<IActionResult> SignIn(SignInRequestModel model)
         {
             try
             {
-                await authenticationService.SignInAsync(model);
-                return Ok();
+                return Ok(await authenticationService.SignInAsync(model));
             }
             catch (InvalidAuthenticationException)
             {
