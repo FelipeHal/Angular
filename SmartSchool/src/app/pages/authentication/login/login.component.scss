@@ -7,12 +7,21 @@
 }
 
 .login-title{
+  font-family: cursive;
+  font-weight: bolder;
+  color: white;
   padding: 5rem 0 3rem;
 }
 
 .login-container{
+  width: 500px;
+  margin: 0 auto;
   position: relative;
   justify-content: center;
+}
+
+.form-check-label{
+  color:white;
 }
 
 // .form-check-label{

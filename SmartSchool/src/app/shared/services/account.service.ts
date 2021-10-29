@@ -84,6 +84,6 @@ export class AccountService {
     }
 
     public logoff(): void {
-      //todo
+      localStorage.removeItem('token');
     }
 }
