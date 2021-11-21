@@ -57,6 +57,44 @@ namespace SmartSchool.WebAPI.Services.Handlers
             throw new InvalidAuthenticationException();
         }
 
+        public async Task<SignInResponseModel> RefreshTokenAsync(RefreshTokenRequestModel model)
+        {
+            var refreshToken = await refreshTokensRepository.FindByUsernameAndTokenAsync(model.Username, model.RefreshToken);
+            if (refreshToken == null)
+            {
+                throw new RefreshTokenNotFoundException();
+            }
+            else if (!refreshToken.IsActive)
+            {
+                throw new RefreshTokenInvalidException();
+            }
+
+            var transaction = await context.Database.BeginTransactionAsync();
+            try
+            {
+                await refreshTokensRepository.RevokeAsync(refreshToken);
+
+                refreshToken = CreateRefreshToken(refreshToken.Usuario);
+                await refreshTokensRepository.InsertAsync(refreshToken);
+
+                await context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return new SignInResponseModel
+                {
+                    Username = model.Username,
+
+                    Token = CreateJwtToken(refreshToken.Usuario),
+
+                    RefreshToken = refreshToken.Token
+                };
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
 
 
         private string CreateJwtToken(Usuarios usuario)

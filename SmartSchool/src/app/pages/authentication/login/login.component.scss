@@ -1,29 +1,46 @@
-.bg {
-  background-image: url(../login/Images/login-background.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size:auto;
-  height : 100vh;
+@import '/src/app/shared/styles/variables-login';
+
+@import '/src/app/shared/styles/background';
+@import '/src/app/shared/styles/workarounds/scroll-container';
+
+.login-container {
+	display: flex;
+	height: 100%;
+	margin: $container-margin;
+	align-items: center;
+	justify-content: center;
 }
 
-.login-title{
-  font-family: cursive;
-  font-weight: bolder;
-  color: white;
-  padding: 5rem 0 3rem;
-}
+.content {
+	width: $content-width;
+	border-radius: $content-radius;
 
-.login-container{
-  width: 40rem;
-  margin: 0 auto;
-  position: relative;
-  justify-content: center;
-}
+	.login-content {
+		min-height: $content-height;
+		padding: $content-padding;
+		border-radius: $content-radius;
 
-.form-check-label{
-  color:white;
-}
+		@include background($background-color, $background-alpha, $blur: 0.75rem);
 
-// .form-check-label{
-//   font-weight: bolder;
-// }
+
+    .login-title{
+      font-family: cursive;
+      font-weight: bolder;
+      color: $home-fore-color;
+      padding: 0 0 1rem;
+    }
+
+    .form-check-label{
+      color: $home-fore-color;
+    }
+	}
+
+	.copyright-content {
+		margin-top: -10px;
+		padding: 0.6rem 0.5rem 0.2rem 0.5rem;
+		font-weight: 500;
+		font-size: 0.9rem;
+		border-bottom-left-radius: $content-radius;
+		border-bottom-right-radius: $content-radius;
+	}
+}

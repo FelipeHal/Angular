@@ -21,6 +21,7 @@ import { LoginComponent } from './pages/authentication/login/login.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import { LogoutComponent } from './pages/authentication/logout/logout.component';
 import { JwtInterceptor } from '@auth0/angular-jwt';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { JwtInterceptor } from '@auth0/angular-jwt';
   providers: [
     JwtInterceptor,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -6,5 +6,7 @@ namespace SmartSchool.WebAPI.Services
     public interface IAuthenticationService
     {
         Task<SignInResponseModel> SignInAsync(SignInRequestModel model);
+
+        Task<SignInResponseModel> RefreshTokenAsync(RefreshTokenRequestModel model);
     }
 }

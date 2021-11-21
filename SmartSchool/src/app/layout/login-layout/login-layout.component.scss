@@ -1,0 +1,7 @@
+@import '/src/app/shared/styles/variables-login';
+
+@import '/src/app/shared/styles/background';
+
+.background {
+  @include background(rgb(255,255,255), 0.2, $child: false);
+}

@@ -1,0 +1,34 @@
+@mixin background($color, $alpha, $blur: 3px, $zIndex: -2, $child: true) {
+  position: relative;
+  z-index: $zIndex;
+
+	@if $child {
+		overflow: hidden;
+	}
+
+  background: url($background-url) no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  &::before {
+  	z-index: $zIndex - 1;
+    content: "";
+    background: inherit;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 500px 500px rgba($color, $alpha);
+    filter: blur($blur);
+
+		@if $child {
+			position: absolute;
+			margin: -$blur;
+		}
+		@else {
+			position: fixed;
+		}
+  }
+}

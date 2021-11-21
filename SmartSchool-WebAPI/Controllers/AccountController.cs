@@ -37,5 +37,26 @@ namespace SmartSchool.WebAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost, Route("[action]"), AllowAnonymous]
+        public async Task<IActionResult> RefreshToken(RefreshTokenRequestModel model)
+        {
+            try
+            {
+                return Ok(await authenticationService.RefreshTokenAsync(model));
+            }
+            catch (RefreshTokenInvalidException)
+            {
+                return Unauthorized();
+            }
+            catch (RefreshTokenNotFoundException)
+            {
+                return Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

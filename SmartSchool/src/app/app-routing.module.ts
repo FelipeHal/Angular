@@ -55,7 +55,8 @@ const routes: Routes = [
           //environment.UrlPrincipal.replace(/(^\w+:|^)\/\//, '')
         ],
         disallowedRoutes: [
-          `${environment.UrlPrincipal}/Account`
+          `${environment.UrlPrincipal}/Account`,
+          `${environment.UrlPrincipal}/Account/RefreshToken`,
         ]
       }
     })

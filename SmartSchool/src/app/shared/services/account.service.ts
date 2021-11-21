@@ -96,6 +96,36 @@ export class AccountService {
         );
     }
 
+    public async tryRefreshToken(): Promise<string> {
+        return await lastValueFrom(
+            this.http
+              .post<SignInModel>(`${this.baseUrl}/RefreshToken`, {
+                username: this.username ?? '',
+                refreshToken: this.refreshToken ?? ''
+              })
+              .pipe(
+                  map((res: SignInModel) => {
+
+                    this.token = res.token;
+                    this.refreshToken = res.refreshToken;
+
+
+                      return this.token;
+                  }),
+
+                  catchError((error: HttpErrorResponse) => {
+                      switch (error.status) {
+                          case 401:
+                              return of('invalid');
+                          default:
+                              console.log(error);
+                              return of('error');
+                      }
+                  })
+              )
+          );
+    }
+
     public logoff(): boolean {
       localStorage.removeItem('token');
       return this.username == null;
